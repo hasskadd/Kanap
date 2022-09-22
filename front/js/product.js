@@ -2,7 +2,7 @@ const product = window.location.search.split("?id=").join("");
 const fetchProduct = async ()=>{
     await fetch(`http://localhost:3000/api/products/${product}`).then(response => response.json())
     .then(data =>{
-        console.log(data);
+        console.log(data); // Ne pas oublier de l'enlever
         // recuperation et integration de l'image
         const imageItems = document.querySelector(".item__img");
         const imageElement = document.createElement("img");
@@ -22,6 +22,15 @@ const fetchProduct = async ()=>{
         const descriptionItems = document.getElementById("description");
         descriptionItems.innerHTML = data.description;
 
+        // section de la couleur
+        const arrayColor = data.colors;
+        for (let i = 0; i < arrayColor.length; i++) {
+            const selectColor = document.createElement("option");
+            selectColor.value = arrayColor[i];
+            selectColor.innerHTML = arrayColor[i];
+            document.querySelector("#colors").appendChild(selectColor);
+            
+        }
 
     });
 };
