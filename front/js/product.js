@@ -57,14 +57,15 @@ buttonAjout.addEventListener("click", function(){
         altTxt: imageAlt,
         price: parseInt(priceItems),
         color: colorItems, 
-        quantité: parseInt(quantityItems)
+        quantity: parseInt(quantityItems)
     };
     let JsonLinea = JSON.stringify(productCart)
     if(quantityItems != 0 || colorItems != ""){
         localStorage.setItem(product, JsonLinea);
     }else{
         alert("Veuillez sélectionner une couleur ainsi que la quantité !");
-    }  
+    }
+     
 })
 
 

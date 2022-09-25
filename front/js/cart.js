@@ -1,5 +1,13 @@
 // test
-let dataLinea = localStorage.getItem(localStorage.key(0));
-let dataJason = JSON.parse(dataLinea);
-let priceCal = dataJason.price + 100 
-console.log(priceCal);
+
+
+let cartItems = document.querySelector("#cart__items");
+const jsonArray = [];
+
+for (let i = 0; i < localStorage.length; i++) {
+    let dataLinea = localStorage.getItem(localStorage.key(i));
+    let dataJson = JSON.parse(dataLinea);
+    jsonArray.push(dataJson);
+ 
+}
+console.log(jsonArray);
