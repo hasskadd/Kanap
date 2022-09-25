@@ -1,4 +1,5 @@
-
-let dataLinea = localStorage.getItem();
+// test
+let dataLinea = localStorage.getItem(localStorage.key(0));
 let dataJason = JSON.parse(dataLinea);
-console.log(dataJason);
+let priceCal = dataJason.price + 100 
+console.log(priceCal);

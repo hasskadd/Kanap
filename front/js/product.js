@@ -51,25 +51,22 @@ buttonAjout.addEventListener("click", function(){
     let imageAlt = document.querySelectorAll(".item__img > img")[0].alt;
    
     let productCart = {
-        productName,
-        productID,
-        imageSource,
-        imageAlt,
-        priceItems,
-        colorItems, 
-        quantityItems,
-       
-     };
+        name: productName,
+        id: productID,
+        src: imageSource,
+        altTxt: imageAlt,
+        price: parseInt(priceItems),
+        color: colorItems, 
+        quantité: parseInt(quantityItems)
+    };
     let JsonLinea = JSON.stringify(productCart)
-    if(quantityItems != 0 && colorItems != ""){
-        localStorage.setItem(productID, JsonLinea);
+    if(quantityItems != 0 || colorItems != ""){
+        localStorage.setItem(product, JsonLinea);
     }else{
         alert("Veuillez sélectionner une couleur ainsi que la quantité !");
-    }
-    
-    
-    
+    }  
 })
+
 
 
 
