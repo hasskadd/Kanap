@@ -2,7 +2,7 @@ const product = window.location.search.split("?id=").join("");
 const fetchProduct = async ()=>{
     await fetch(`http://localhost:3000/api/products/${product}`).then(response => response.json())
     .then(data =>{
-        console.log(data); // Ne pas oublier de l'enlever
+       // console.log(data); Ne pas oublier de l'enlever
         // recuperation et integration de l'image
         const imageItems = document.querySelector(".item__img");
         const imageElement = document.createElement("img");
@@ -39,10 +39,10 @@ fetchProduct();
 
 let buttonAjout = document.querySelector("#addToCart");
 
-
+let productID = product;
 buttonAjout.addEventListener("click", function(){
     
-    let productID = product;
+    
     let priceItems = document.querySelector("#price").innerHTML;
     let colorItems = document.getElementById("colors").value;
     let quantityItems = document.getElementById("quantity").value;
@@ -62,7 +62,7 @@ buttonAjout.addEventListener("click", function(){
      };
     let JsonLinea = JSON.stringify(productCart)
     if(quantityItems != 0 && colorItems != ""){
-        localStorage.setItem("cart", JsonLinea);
+        localStorage.setItem(productID, JsonLinea);
     }else{
         alert("Veuillez sélectionner une couleur ainsi que la quantité !");
     }
@@ -70,9 +70,8 @@ buttonAjout.addEventListener("click", function(){
     
     
 })
-let dataLinea = localStorage.getItem("cart");
-let dataJason = JSON.parse(dataLinea);
-//console.log(dataJason);
+
+
 
 
 
