@@ -31,8 +31,50 @@ const fetchProduct = async ()=>{
             document.querySelector("#colors").appendChild(selectColor);
             
         }
-
+       
     });
 };
 
 fetchProduct();
+
+let buttonAjout = document.querySelector("#addToCart");
+
+
+buttonAjout.addEventListener("click", function(){
+    
+    let productID = product;
+    let priceItems = document.querySelector("#price").innerHTML;
+    let colorItems = document.getElementById("colors").value;
+    let quantityItems = document.getElementById("quantity").value;
+    let productName = document.getElementById("title").innerHTML;
+    let imageSource = document.querySelectorAll(".item__img > img")[0].currentSrc;
+    let imageAlt = document.querySelectorAll(".item__img > img")[0].alt;
+   
+    let productCart = {
+        productName,
+        productID,
+        imageSource,
+        imageAlt,
+        priceItems,
+        colorItems, 
+        quantityItems,
+       
+     };
+    let JsonLinea = JSON.stringify(productCart)
+    if(quantityItems != 0 && colorItems != ""){
+        localStorage.setItem("cart", JsonLinea);
+    }else{
+        alert("Veuillez sélectionner une couleur ainsi que la quantité !");
+    }
+    
+    
+    
+})
+let dataLinea = localStorage.getItem("cart");
+let dataJason = JSON.parse(dataLinea);
+//console.log(dataJason);
+
+
+
+
+
