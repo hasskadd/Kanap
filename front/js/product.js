@@ -32,7 +32,9 @@ const fetchProduct = async ()=>{
             
         }
        
-    });
+    })
+    saveProduct();
+    
 };
 
 fetchProduct();
@@ -41,8 +43,11 @@ let buttonAjout = document.querySelector("#addToCart");
 
 let productID = product;
 buttonAjout.addEventListener("click", function(){
+    console.log(saveProduct());
+})
     
-    
+  
+/*    
     let priceItems = document.querySelector("#price").innerHTML;
     let colorItems = document.getElementById("colors").value;
     let quantityItems = document.getElementById("quantity").value;
@@ -66,8 +71,26 @@ buttonAjout.addEventListener("click", function(){
         alert("Veuillez sélectionner une couleur ainsi que la quantité !");
     }
      
-})
+})*/
 
+ function saveProduct(){
+    let priceItems = document.querySelector("#price").innerHTML;
+    let colorItems = document.getElementById("colors").value;
+    let quantityItems = document.getElementById("quantity").value;
+    let productName = document.getElementById("title").innerHTML;
+    let imageSource = document.querySelectorAll(".item__img > img")[0].currentSrc;
+    let imageAlt = document.querySelectorAll(".item__img > img")[0].alt;
+    let productCart = {
+        name: productName,
+        id: productID,
+        src: imageSource,
+        altTxt: imageAlt,
+        price: parseInt(priceItems),
+        color: colorItems, 
+        quantity: parseInt(quantityItems)
+    };
+    
+}
 
 
 
