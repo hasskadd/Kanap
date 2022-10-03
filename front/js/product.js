@@ -1,4 +1,7 @@
 const product = window.location.search.split("?id=").join("");
+let productID = product;
+
+
 const fetchProduct = async ()=>{
     await fetch(`http://localhost:3000/api/products/${product}`).then(response => response.json())
     .then(data =>{
@@ -38,40 +41,50 @@ const fetchProduct = async ()=>{
 
 fetchProduct(product);
 
-let buttonAjout = document.querySelector("#addToCart");
-let productID = product;
-    
-buttonAjout.addEventListener("click", ()=>{
-        saveProduct();
+let cartClient = {};
+cartClient.id = productID;
+//console.log(cartClient);
+
+
+
+let setColor = document.querySelector("#colors");
+setColor.addEventListener("change", (event) =>{
+        let productColor;
+        productColor = event.target.value;
+        cartClient.colors = productColor;
+    });
+
+let setQuantity = document.querySelector("#quantity");
+setQuantity.addEventListener("change", (e)=>{
+        let productQuantity;
+        productQuantity = e.target.value;
+        cartClient.quantity = productQuantity;
     })
 
-    function saveProduct(){
-          
-        let priceItems = document.querySelector("#price").innerHTML;
-        let colorItems = document.getElementById("colors").value;
-        let quantityItems = document.getElementById("quantity").value;
-        let productName = document.getElementById("title").innerHTML;
-        let imageSource = document.querySelectorAll(".item__img > img")[0].currentSrc;
-        let imageAlt = document.querySelectorAll(".item__img > img")[0].alt;
-        let productCart = {
-            name: productName,
-            id: productID,
-            src: imageSource,
-            altTxt: imageAlt,
-            price: parseInt(priceItems),
-            color: colorItems, 
-            quantity: parseInt(quantityItems)
-        };
-        let productNumber = localStorage.getItem(product);
-        let productCartJson =  JSON.stringify(productCart);
-        if(productNumber){
-           // localStorage.setItem(product, productCart.quantity + quantity);
-           console.log("ca marche");
+let buttonAjout = document.querySelector("#addToCart");
+buttonAjout.addEventListener("click", ()=>{
+        if(cartClient.colors == "" || cartClient.colors == undefined || cartClient.quantity == undefined || cartClient.quantity < 1 || cartClient.quantity > 100){
+            alert("Veuillez choisir une couleur ainsi que la quantité compris entre 1 et 100");
         }else{
-            localStorage.setItem(product, productCartJson);
-        }
+            cart();
+            
+        } 
+    })
 
+let setCart = [];
+
+function addCart(){
+    if(setCart.length == 0){
+        setCart.push(cartClient);
+        return localStorage.setItem("Panier", JSON.stringify(setCart));
     }
+    
+}
+
+function cart(){
+    addCart();
+
+}
 
 
 
@@ -79,3 +92,8 @@ buttonAjout.addEventListener("click", ()=>{
 
 
 
+
+
+
+
+  
