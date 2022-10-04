@@ -66,25 +66,33 @@ buttonAjout.addEventListener("click", ()=>{
         if(cartClient.colors == "" || cartClient.colors == undefined || cartClient.quantity == undefined || cartClient.quantity < 1 || cartClient.quantity > 100){
             alert("Veuillez choisir une couleur ainsi que la quantité compris entre 1 et 100");
         }else{
-            cart();
+            saveCart();
             
         } 
     })
 
 let setCart = [];
 
-function addCart(){
-    if(setCart.length == 0){
-        setCart.push(cartClient);
-        return localStorage.setItem("Panier", JSON.stringify(setCart));
+
+function saveCart(){
+    setCart = JSON.parse(localStorage.getItem("Panier"))
+    if(!setCart){ // verifier si setCart est vide
+        setCart = [];
+        setCart.push(cartClient); // s'il est vide , ajouter l'objet Client a set cart
+        return localStorage.setItem("Panier", JSON.stringify(setCart)); // puis sauvegarder sur le localestorage
+    }else{
+       for(let i = 0; i < setCart.length; i++){
+            if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){
+               let addQuantity ;
+               addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity);
+                setCart[i].quantity = JSON.stringify(addQuantity);
+                localStorage.setItem("Panier",  JSON.stringify(setCart));
+            }
+       }
     }
     
 }
 
-function cart(){
-    addCart();
-
-}
 
 
 
