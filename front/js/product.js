@@ -43,9 +43,6 @@ fetchProduct(product);
 
 let cartClient = {};
 cartClient.id = productID;
-//console.log(cartClient);
-
-
 
 let setColor = document.querySelector("#colors");
 setColor.addEventListener("change", (event) =>{
@@ -67,12 +64,13 @@ buttonAjout.addEventListener("click", ()=>{
             alert("Veuillez choisir une couleur ainsi que la quantité compris entre 1 et 100");
         }else{
             saveCart();
-            
+           
         } 
     })
 
 let setCart = [];
-
+let setAnotherCart = [];
+let boucle = 0;
 
 function saveCart(){
     setCart = JSON.parse(localStorage.getItem("Panier"))
@@ -87,11 +85,23 @@ function saveCart(){
                addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity);
                 setCart[i].quantity = JSON.stringify(addQuantity);
                 localStorage.setItem("Panier",  JSON.stringify(setCart));
+                break;
+                 
+            }else{
+                let temp = [];
+                temp.push(cartClient);
+                setAnotherCart = setCart.concat(temp);
+                localStorage.setItem("Panier", JSON.stringify(setAnotherCart));
+                console.log("ca marche"); 
             }
-       }
+        }
+        localStorage.setItem("Panier");
+                      
     }
     
+   
 }
+
 
 
 
