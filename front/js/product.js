@@ -90,12 +90,9 @@ function saveCart(){
             }else{
                 let temp = [];
                 temp.push(cartClient);
-                setAnotherCart = setCart.concat(temp);
-                localStorage.setItem("Panier", JSON.stringify(setAnotherCart));
-                console.log("ca marche"); 
+                localStorage.setItem("Panier", JSON.stringify(setCart.concat(temp))); 
             }
         }
-        localStorage.setItem("Panier");
                       
     }
     
