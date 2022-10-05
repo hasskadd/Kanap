@@ -1,18 +1,50 @@
-// test
-
 
 let cartItems = document.querySelector("#cart__items");
-const jsonArray = [];
+let produitInCart = JSON.parse(localStorage.getItem("Panier"));
 
-for (let i = 0; i < localStorage.length; i++) {
-    let dataLinea = localStorage.getItem(localStorage.key(i));
-    let dataJson = JSON.parse(dataLinea);
-    jsonArray.push(dataJson);
- 
-}
-console.log(jsonArray);
+console.log(produitInCart);
+async function getApi(){
+    await fetch('http://localhost:3000/api/products/')
+    .then(res => res.json())
+    .then(dataJson =>{
+        console.log(dataJson);
+        for (let i = 0; i < produitInCart.length; i++) {
+            cartItems.innerHTML += 
+                `<article class="cart__item" data-id=${produitInCart[i].id} data-color=${produitInCart[i].color}>
+                    <div class="cart__item__img">
+                        <img src=${dataJson[i].imageUrl} alt=${dataJson[i].altTxt}>
+                    </div>
+                    <div class="cart__item__content">
+                        <div class="cart__item__content__description">
+                            <h2>${dataJson[i].name}</h2>
+                            <p>${produitInCart[i].colors}</p>
+                            <p>${dataJson[i].price} €</p>
+                        </div>
+                        <div class="cart__item__content__settings">
+                            <div class="cart__item__content__settings__quantity">
+                                <p>Qté :</p>
+                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value=${produitInCart[i].quantity}>
+                            </div>
+                            <div class="cart__item__content__settings__delete">
+                                <p class="deleteItem">Supprimer</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>`
+        }
+            
+    })
 
-for(let key in jsonArray){
+
+    
+
+}   
+getApi();
+
+
+
+
+/*for(let key in jsonArray){
     console.log(jsonArray[key].id);
     cartItems.innerHTML += 
         `<article class="cart__item" data-id=${jsonArray[key].id} data-color=${jsonArray[key].color}>
@@ -37,4 +69,4 @@ for(let key in jsonArray){
             </div>
         </article>`
 }
-
+*/
