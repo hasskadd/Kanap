@@ -11,8 +11,7 @@ async function getApi(){
         for (let i = 0; i < produitInCart.length; i++) {
             const founProduct = dataJson.find((productFindId) => productFindId._id == produitInCart[i].id);
             tempArray.push(founProduct);
-            if(founProduct){
-                
+            if(founProduct){               
                 cartItems.innerHTML += 
                 `<article class="cart__item" data-id=${produitInCart[i].id} data-color=${produitInCart[i].color}>
                     <div class="cart__item__img">
@@ -38,11 +37,12 @@ async function getApi(){
             }
   
         }
+        const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
+        //const summPrice = tempArray
+        
+        console.log(summQuantity);
             
-    })
-
-
-    
+    })  
 
 }   
 getApi();
