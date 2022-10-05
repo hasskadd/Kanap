@@ -64,13 +64,14 @@ buttonAjout.addEventListener("click", ()=>{
             alert("Veuillez choisir une couleur ainsi que la quantité compris entre 1 et 100");
         }else{
             saveCart();
-           
+            alert("Votre produit a été ajouté au panier !");
+            
         } 
     })
 
 let setCart = [];
 let setAnotherCart = [];
-let boucle = 0;
+
 
 function saveCart(){
     setCart = JSON.parse(localStorage.getItem("Panier"))
@@ -78,19 +79,19 @@ function saveCart(){
         setCart = [];
         setCart.push(cartClient); // s'il est vide , ajouter l'objet Client a set cart
         return localStorage.setItem("Panier", JSON.stringify(setCart)); // puis sauvegarder sur le localestorage
-    }else{
+    }else{ // si le local storage n'est pas vide
        for(let i = 0; i < setCart.length; i++){
-            if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){
-               let addQuantity ;
-               addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity);
-                setCart[i].quantity = JSON.stringify(addQuantity);
-                localStorage.setItem("Panier",  JSON.stringify(setCart));
-                break;
+            if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){ // verifier si l'id et la couleur sont les mêmes 
+               let addQuantity ; // creation d'une variable quantité
+               addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity); // addition de la quantité voulu et celui du panier
+                setCart[i].quantity = JSON.stringify(addQuantity); // 
+                localStorage.setItem("Panier",  JSON.stringify(setCart)); // ajout au local storage
+                break; // stop de la boucle
                  
-            }else{
-                let temp = [];
-                temp.push(cartClient);
-                localStorage.setItem("Panier", JSON.stringify(setCart.concat(temp))); 
+            }else{ //sinon
+                let temp = []; // créer un tableau temporel
+                temp.push(cartClient); // ajouter la selection du client dans le tableau temporel
+                localStorage.setItem("Panier", JSON.stringify(setCart.concat(temp))); // stocker dans le localstorage en le concatenant  
             }
         }
                       
