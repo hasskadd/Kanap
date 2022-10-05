@@ -2,6 +2,7 @@
 let cartItems = document.querySelector("#cart__items");
 let produitInCart = JSON.parse(localStorage.getItem("Panier"));
 let tempArray = [];
+let priceProductArray = [];
 
 console.log(produitInCart);
 async function getApi(){
@@ -34,18 +35,25 @@ async function getApi(){
                         </div>
                     </div>
                 </article>`
+
+                let priceProduct = tempArray[i].price * parseInt(produitInCart[i].quantity);
+                priceProductArray.push(priceProduct);
+
             }
-  
+            
         }
-        const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
-        //const summPrice = tempArray
         
-        console.log(summQuantity);
+        const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
+        document.querySelector("#totalQuantity").innerHTML = summQuantity;
+        summPriceTotal = priceProductArray.reduce((prev, curr) => prev + curr, 0);
+        document.querySelector("#totalPrice").innerHTML = summPriceTotal;
+        
             
     })  
 
 }   
 getApi();
+
 
 
 
