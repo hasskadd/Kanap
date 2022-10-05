@@ -4,7 +4,7 @@ let produitInCart = JSON.parse(localStorage.getItem("Panier"));
 let tempArray = [];
 let priceProductArray = [];
 
-console.log(produitInCart);
+//console.log(produitInCart);
 async function getApi(){
     await fetch('http://localhost:3000/api/products/')
     .then(res => res.json())
