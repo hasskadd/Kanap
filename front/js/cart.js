@@ -84,11 +84,21 @@ function changeQuantityFunction(){
     let changeQuantity = document.querySelectorAll(".itemQuantity");
     changeQuantity.forEach((el)=>{
         el.addEventListener("change", () =>{
-            
-            console.log("ca marche");
-            console.log(parseInt(el.value) + 1);
-        });
-    });
+            for(let i = 0; i < produitInCart.length; i++){
+                if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
+                    if(el.value != 0 && el.value < 100){
+                        produitInCart[i].quantity = el.value;
+                        produitInCart.push();
+                        localStorage.setItem("Panier", JSON.stringify(produitInCart));
+                        location.reload();
+                    }else{
+                        alert("veuillez sélectionner un nombre compris entre 1 et 100");
+                        location.reload();
+                    }
+                }
+            }
+        })
+    })
 }
     
  
