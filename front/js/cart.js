@@ -47,7 +47,7 @@ async function getApi(){
         priceTotal();
         // Delete et changement de la quantité totale
         deleteFunction();
-        //changeQuantityFunction();
+        changeQuantityFunction();
             
     })  
 
@@ -71,13 +71,24 @@ function deleteFunction(){
         el.addEventListener("click", () =>{
             for(let i = 0; i < produitInCart.length; i++){
                 if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
-                    console.log("ce sont les meme");
-                    console.log(el.closest(".cart__item").dataset.id,  produitInCart[i].id);
-                    console.log(el.closest(".cart__item").dataset.color,  produitInCart[i].colors);
+                    produitInCart.splice(i, 1);
+                    localStorage.setItem("Panier", JSON.stringify(produitInCart));
+                    location.reload();
                 }
             }
         });
     })
+}
+
+function changeQuantityFunction(){
+    let changeQuantity = document.querySelectorAll(".itemQuantity");
+    changeQuantity.forEach((el)=>{
+        el.addEventListener("change", () =>{
+            
+            console.log("ca marche");
+            console.log(parseInt(el.value) + 1);
+        });
+    });
 }
     
  
