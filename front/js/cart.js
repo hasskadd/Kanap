@@ -70,9 +70,10 @@ function deleteFunction(){
     deleteButton.forEach((el) =>{
         el.addEventListener("click", () =>{
             for(let i = 0; i < produitInCart.length; i++){
-                if(el.closest(".cart__item").dataset.id == produitInCart[i].id){
+                if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
                     console.log("ce sont les meme");
                     console.log(el.closest(".cart__item").dataset.id,  produitInCart[i].id);
+                    console.log(el.closest(".cart__item").dataset.color,  produitInCart[i].colors);
                 }
             }
         });
