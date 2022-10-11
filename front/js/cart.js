@@ -14,7 +14,7 @@ async function getApi(){
             tempArray.push(founProduct);
             if(founProduct){               
                 cartItems.innerHTML += 
-                `<article class="cart__item" data-id=${produitInCart[i].id} data-color=${produitInCart[i].color}>
+                `<article class="cart__item" data-id=${produitInCart[i].id} data-color=${produitInCart[i].colors}>
                     <div class="cart__item__img">
                         <img src=${tempArray[i].imageUrl} alt=${tempArray[i].altTxt}>
                     </div>
@@ -25,7 +25,7 @@ async function getApi(){
                             <p>${tempArray[i].price} €</p>
                         </div>
                         <div class="cart__item__content__settings">
-                            <div class="cart__item__content__settings__quantity">
+                                <div class="cart__item__content__settings__quantity">
                                 <p>Qté :</p>
                                 <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value=${produitInCart[i].quantity}>
                             </div>
@@ -42,17 +42,60 @@ async function getApi(){
             }
             
         }
-        
-        const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
-        document.querySelector("#totalQuantity").innerHTML = summQuantity;
-        summPriceTotal = priceProductArray.reduce((prev, curr) => prev + curr, 0);
-        document.querySelector("#totalPrice").innerHTML = summPriceTotal;
-        
+        // quantité et prix total
+        quantityTotal();
+        priceTotal();
+        // Delete et changement de la quantité totale
+        deleteFunction();
+        //changeQuantityFunction();
             
     })  
 
+   
 }   
 getApi();
+
+function quantityTotal(){
+    const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
+    document.querySelector("#totalQuantity").innerHTML = summQuantity;
+}
+function priceTotal(){
+    summPriceTotal = priceProductArray.reduce((prev, curr) => prev + curr, 0);
+    document.querySelector("#totalPrice").innerHTML = summPriceTotal;
+} 
+
+
+function deleteFunction(){  
+    let deleteButton = document.querySelectorAll(".deleteItem");
+    //const articleSelect = document.querySelectorAll(".cart__item");
+    deleteButton.forEach((deleteButton) => {
+       deleteButton.addEventListener("click", () =>{
+        for(let i = 0 ; i < produitInCart ; i++){
+            console.log(produitInCart[i]);
+            /*if(deleteButton.dataset.id == produitInCart[i].id && deleteButton.dataset.color == produitInCart[i].color){
+                console.log("ca marche")
+            }*/
+        }
+       });
+    });
+    /*deleteButton.forEach(el => el.addEventListener('click', ()=>{
+        console.log("ca marche");
+    })) */
+        /*for(let i = 0; i < articleSelect.length; i++ ){
+            console.log(articleSelect[i].dataset.id, articleSelect[i].dataset.color);
+        }*/
+        
+
+    
+}
+
+ /*function changeQuantityFunction(){
+    let changeQuantity = document.querySelector(".itemsQuantity");
+     changeQuantity.addEventListener('change', ()=>{
+        console.log("ca marche bien");
+    })
+}*/
+
 
 
 
