@@ -67,35 +67,19 @@ function priceTotal(){
 
 function deleteFunction(){  
     let deleteButton = document.querySelectorAll(".deleteItem");
-    //const articleSelect = document.querySelectorAll(".cart__item");
-    deleteButton.forEach((deleteButton) => {
-       deleteButton.addEventListener("click", () =>{
-        for(let i = 0 ; i < produitInCart ; i++){
-            console.log(produitInCart[i]);
-            /*if(deleteButton.dataset.id == produitInCart[i].id && deleteButton.dataset.color == produitInCart[i].color){
-                console.log("ca marche")
-            }*/
-        }
-       });
-    });
-    /*deleteButton.forEach(el => el.addEventListener('click', ()=>{
-        console.log("ca marche");
-    })) */
-        /*for(let i = 0; i < articleSelect.length; i++ ){
-            console.log(articleSelect[i].dataset.id, articleSelect[i].dataset.color);
-        }*/
-        
-
-    
-}
-
- /*function changeQuantityFunction(){
-    let changeQuantity = document.querySelector(".itemsQuantity");
-     changeQuantity.addEventListener('change', ()=>{
-        console.log("ca marche bien");
+    deleteButton.forEach((el) =>{
+        el.addEventListener("click", () =>{
+            for(let i = 0; i < produitInCart.length; i++){
+                if(el.closest(".cart__item").dataset.id == produitInCart[i].id){
+                    console.log("ce sont les meme");
+                    console.log(el.closest(".cart__item").dataset.id,  produitInCart[i].id);
+                }
+            }
+        });
     })
-}*/
-
+}
+    
+ 
 
 
 
