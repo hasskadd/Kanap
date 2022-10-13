@@ -130,37 +130,101 @@ form.city.addEventListener('change', ()=>{
     validCity();
 });
 
+
+
 function validFirstName(){
     //création du reg exp pour la validation du prénom
     let firstNameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,30}$/g;
     let testFirstName = firstNameRegex.test(inputFirstName.value);
-    console.log(testFirstName);
+
+    let msgErrorFirstName = document.querySelector("#firstNameErrorMsg");
+
+    // test expression Reg
+    if(testFirstName){
+        msgErrorFirstName.innerHTML = "Prénom valide";
+        msgErrorFirstName.classList.remove('text-danger');
+        msgErrorFirstName.classList.add('text-success');
+        
+    }else{
+        msgErrorFirstName.innerHTML = "Prénom non valide";
+        msgErrorFirstName.classList.remove('text-success');
+        msgErrorFirstName.classList.add('text-danger');
+    }
+    
 };
 
 function validLastName(){
     //création du reg exp pour la validation du Nom
     let lastNameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,30}$/g;
-    let testFirstName = lastNameRegex.test(inputLastName.value);
-    console.log(testFirstName);
+    let testLastName = lastNameRegex.test(inputLastName.value);
+    let msgErrorLastName = document.querySelector("#lastNameErrorMsg");
+
+    // test expression Reg
+    if(testLastName){
+        msgErrorLastName.innerHTML = "Nom valide";
+        msgErrorLastName.classList.remove('text-danger');
+        msgErrorLastName.classList.add('text-success');
+        
+    }else{
+        msgErrorLastName.innerHTML = "Nom non valide";
+        msgErrorLastName.classList.remove('text-success');
+        msgErrorLastName.classList.add('text-danger');
+    }
 };
 
 function validEmail(){
     // //création du reg exp pour la validation du mail
     let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{3,30}/;
     let testEmail = emailRegex.test(inputEmail.value);
-    console.log(testEmail);
+    let msgErrorEmail = document.querySelector("#emailErrorMsg");
+
+    // test expression Reg
+    if(testEmail){
+        msgErrorEmail.innerHTML = "Email valide";
+        msgErrorEmail.classList.remove('text-danger');
+        msgErrorEmail.classList.add('text-success');
+        
+    }else{
+        msgErrorEmail.innerHTML = 'Email non valide';
+        msgErrorEmail.classList.remove('text-success');
+        msgErrorEmail.classList.add('text-danger');
+    }
 }
 
 function validAddress(){
     let addressRegex = /^[A-Za-z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,40}$/g;
     let testAddress = addressRegex.test(inputAddress.value);
-    console.log(testAddress);
+    let msgErrorAddress = document.querySelector("#addressErrorMsg");
+
+    // test expression Reg
+    if(testAddress){
+        msgErrorAddress.innerHTML = "Address valide";
+        msgErrorAddress.classList.remove('text-danger');
+        msgErrorAddress.classList.add('text-success');
+        
+    }else{
+        msgErrorAddress.innerHTML = 'Address non valide';
+        msgErrorAddress.classList.remove('text-success');
+        msgErrorAddress.classList.add('text-danger');
+    }
 }
  
 function validCity(){
     let cityRegex = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]{3,30}$/g;
     let testCity = cityRegex.test(inputCity.value);
-    console.log(testCity);
+    let msgErrorCity = document.querySelector("#cityErrorMsg");
+
+    // test expression Reg
+    if(testCity){
+        msgErrorCity.innerHTML = "Ville valide";
+        msgErrorCity.classList.remove('text-danger');
+        msgErrorCity.classList.add('text-success');
+        
+    }else{
+        msgErrorCity.innerHTML = 'Ville non valide';
+        msgErrorCity.classList.remove('text-success');
+        msgErrorCity.classList.add('text-danger');
+    }
 }
 
 

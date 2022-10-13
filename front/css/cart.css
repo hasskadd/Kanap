@@ -133,8 +133,14 @@ h2 {
 .cart__order__form__submit input:hover {
 	box-shadow: rgb(42 18 206 / 90%) 0 0 22px 6px;
 }
-
-
+/****** Modifi personnel***/
+.text-success{
+	color: #54F98D!important;
+}
+.text-danger{
+	color: #FE1B00!important;
+}
+/*************************/
 
 /***************/
 /*Media queries*/
