@@ -227,5 +227,25 @@ function validCity(){
     }
 }
 
+let product = [];
+for(let i = 0; i< produitInCart.length; i++){
+    product.push(produitInCart[i].id);
+}
 
+form.order.addEventListener('click', (e)=>{
+    e.preventDefault();
 
+    const dataOrder = [
+        contact = {
+            firstName: inputFirstName.value,
+            lastName: inputLastName.value,
+            address: inputAddress.value,
+            city: inputCity.value,
+            email: inputEmail.value
+
+        },
+        product
+    
+    ]
+    console.log(dataOrder);
+})
