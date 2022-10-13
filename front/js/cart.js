@@ -100,10 +100,68 @@ function changeQuantityFunction(){
         })
     })
 }
-    
+
+
+
+let form = document.querySelector(".cart__order__form");
+let inputEmail = document.getElementById("email");
+let inputFirstName = document.getElementById("firstName");
+let inputLastName = document.getElementById("lastName");
+let inputAddress = document.getElementById("address");
+let inputCity = document.getElementById("city");
+
+form.firstName.addEventListener('change', ()=>{
+   validFirstName(); 
+});
+
+form.lastName.addEventListener('change', ()=>{
+    validLastName(); 
+ });
+
+form.email.addEventListener('change', ()=>{
+    validEmail();
+});
+
+form.address.addEventListener('change', ()=>{
+    validAddress();
+});
+
+form.city.addEventListener('change', ()=>{
+    validCity();
+});
+
+function validFirstName(){
+    //création du reg exp pour la validation du prénom
+    let firstNameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,30}$/g;
+    let testFirstName = firstNameRegex.test(inputFirstName.value);
+    console.log(testFirstName);
+};
+
+function validLastName(){
+    //création du reg exp pour la validation du Nom
+    let lastNameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,30}$/g;
+    let testFirstName = lastNameRegex.test(inputLastName.value);
+    console.log(testFirstName);
+};
+
+function validEmail(){
+    // //création du reg exp pour la validation du mail
+    let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{3,30}/;
+    let testEmail = emailRegex.test(inputEmail.value);
+    console.log(testEmail);
+}
+
+function validAddress(){
+    let addressRegex = /^[A-Za-z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,40}$/g;
+    let testAddress = addressRegex.test(inputAddress.value);
+    console.log(testAddress);
+}
  
-
-
+function validCity(){
+    let cityRegex = /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]{3,30}$/g;
+    let testCity = cityRegex.test(inputCity.value);
+    console.log(testCity);
+}
 
 
 

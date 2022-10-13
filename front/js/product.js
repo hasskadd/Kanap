@@ -84,9 +84,15 @@ function saveCart(){
             if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){ // verifier si l'id et la couleur sont les mêmes 
                let addQuantity ; // creation d'une variable quantité
                addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity); // addition de la quantité voulu et celui du panier
+               if(addQuantity > 100){
+                alert("désolé vous avez dépassé votre quota d'éléments stockés");
+                break;
+               }else{
                 setCart[i].quantity = JSON.stringify(addQuantity); // 
                 localStorage.setItem("Panier",  JSON.stringify(setCart)); // ajout au local storage
                 break; // stop de la boucle
+               } 
+              
                  
             }else{ //sinon
                 let temp = []; // créer un tableau temporel
@@ -99,6 +105,8 @@ function saveCart(){
     
    
 }
+
+
 
 
 
