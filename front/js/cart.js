@@ -227,16 +227,15 @@ function validCity(){
     }
 }
 
-let product = [];
+let products = [];
 for(let i = 0; i< produitInCart.length; i++){
-    product.push(produitInCart[i].id);
+    products.push(produitInCart[i].id);
 }
 
-form.order.addEventListener('click', (e)=>{
-    e.preventDefault();
-
-    const dataOrder = [
-        contact = {
+form.addEventListener('submit', (event)=>{
+    event.preventDefault();
+    const dataOrder = {
+        contact:{
             firstName: inputFirstName.value,
             lastName: inputLastName.value,
             address: inputAddress.value,
@@ -244,8 +243,16 @@ form.order.addEventListener('click', (e)=>{
             email: inputEmail.value
 
         },
-        product
+        products
     
-    ]
-    console.log(dataOrder);
-})
+    }
+    fetch('http://localhost:3000/api/products/order',{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dataOrder), 
+    }).then((res) => res.json())
+    .then((getDataOrder) => {
+        location.href = `http://localhost:3001/front/html/confirmation.html?id=${getDataOrder.orderId}`;
+    });
+    
+});
