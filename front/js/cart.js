@@ -90,10 +90,10 @@ function changeQuantityFunction(){
                         produitInCart[i].quantity = el.value;
                         produitInCart.push();
                         localStorage.setItem("Panier", JSON.stringify(produitInCart));
-                        location.reload();
+                       // location.reload();
                     }else{
                         alert("veuillez sélectionner un nombre compris entre 1 et 100");
-                        location.reload();
+                        //location.reload();
                     }
                 }
             }
@@ -252,7 +252,7 @@ form.addEventListener('submit', (event)=>{
         body: JSON.stringify(dataOrder), 
     }).then((res) => res.json())
     .then((getDataOrder) => {
-        location.href = `http://localhost:3001/front/html/confirmation.html?id=${getDataOrder.orderId}`;
+        location.href = `./confirmation.html?id=${getDataOrder.orderId}`;
     });
     
 });
