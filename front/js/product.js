@@ -63,52 +63,41 @@ buttonAjout.addEventListener("click", ()=>{
         if(cartClient.colors == "" || cartClient.colors == undefined || cartClient.quantity == undefined || cartClient.quantity < 1 || cartClient.quantity > 100){
             alert("Veuillez choisir une couleur ainsi que la quantité compris entre 1 et 100");
         }else{
-            saveCart();
-            alert("Votre produit a été ajouté au panier !");
-            
+            saveCart();     
         } 
     })
 
-let setCart = [];
-let setAnotherCart = [];
-
 
 function saveCart(){
-    setCart = JSON.parse(localStorage.getItem("Panier"))
+    setCart = JSON.parse(window.localStorage.getItem("Panier"));
     if(!setCart){ // verifier si setCart est vide
         setCart = [];
         setCart.push(cartClient); // s'il est vide , ajouter l'objet Client a set cart
-        return localStorage.setItem("Panier", JSON.stringify(setCart)); // puis sauvegarder sur le localestorage
-    }else{ // si le local storage n'est pas vide
-       for(let i = 0; i < setCart.length; i++){
-            if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){ // verifier si l'id et la couleur sont les mêmes 
-               let addQuantity ; // creation d'une variable quantité
-               addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity); // addition de la quantité voulu et celui du panier
-               if(addQuantity > 100){
-                alert("désolé vous avez dépassé votre quota d'éléments stockés");
-                break;
-               }else{
-                setCart[i].quantity = JSON.stringify(addQuantity); // 
-                localStorage.setItem("Panier",  JSON.stringify(setCart)); // ajout au local storage
-                break; // stop de la boucle
-               } 
-              
-                 
-            }else{ //sinon
-                let temp = []; // créer un tableau temporel
-                temp.push(cartClient); // ajouter la selection du client dans le tableau temporel
-                localStorage.setItem("Panier", JSON.stringify(setCart.concat(temp))); // stocker dans le localstorage en le concatenant  
+        alert("Votre produit a été ajouté au panier !");
+        localStorage.setItem("Panier", JSON.stringify(setCart)); // puis sauvegarder sur le localestorage 
+    }else{
+        setCart = JSON.parse(localStorage.getItem("Panier"));
+        let addQuantity; 
+        const findProduct = setCart.find((findProduct) => findProduct.id === cartClient.id && findProduct.colors == cartClient.colors);
+        if(findProduct){
+            for(let i in setCart){
+                if(setCart[i].id == cartClient.id && setCart[i].colors == cartClient.colors){        
+                    addQuantity = parseInt(setCart[i].quantity) + parseInt(cartClient.quantity);
+                    if(addQuantity > 100){
+                        alert("Désolé vous avez dépassé votre quota d'éléments stockés")
+                    }else{
+                        setCart[i].quantity = JSON.stringify(addQuantity);
+                        localStorage.setItem("Panier",  JSON.stringify(setCart));
+                        alert("Votre produit a été ajouté au panier !");                   
+                    }                  
+                }
             }
-        }
-                      
-    }
-    
-   
+        }else{          
+            localStorage.setItem("Panier", JSON.stringify(setCart.concat(cartClient)));
+            alert("Votre produit a été ajouté au panier !");    
+        }        
+    }    
 }
-
-
-
-
 
 
 
