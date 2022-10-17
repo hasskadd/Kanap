@@ -1,46 +1,46 @@
-
 let cartItems = document.querySelector("#cart__items");
 let produitInCart = JSON.parse(localStorage.getItem("Panier"));
-let tempArray = [];
-let priceProductArray = [];
 
-//console.log(produitInCart);
-async function getApi(){
+let priceProductArray = [];
+let tempArray = [];
+let founProduct;
+
+
+async function afficherProduit(){
     await fetch('http://localhost:3000/api/products/')
     .then(res => res.json())
-    .then(dataJson =>{
-        for (let i = 0; i < produitInCart.length; i++) {
-            const founProduct = dataJson.find((productFindId) => productFindId._id == produitInCart[i].id);
-            tempArray.push(founProduct);
-            if(founProduct){               
+    .then(dataJson =>{       
+        for (let i = 0; i < produitInCart.length; i++) {    
+            founProduct = dataJson.find((productFind) => productFind._id === produitInCart[i].id);
+            if(founProduct){
                 cartItems.innerHTML += 
                 `<article class="cart__item" data-id=${produitInCart[i].id} data-color=${produitInCart[i].colors}>
                     <div class="cart__item__img">
-                        <img src=${tempArray[i].imageUrl} alt=${tempArray[i].altTxt}>
+                        <img src=${founProduct.imageUrl} alt=${founProduct.altTxt}>
                     </div>
                     <div class="cart__item__content">
                         <div class="cart__item__content__description">
-                            <h2>${tempArray[i].name}</h2>
+                            <h2>${founProduct.name}</h2>
                             <p>${produitInCart[i].colors}</p>
-                            <p>${tempArray[i].price} €</p>
+                            <p>${founProduct.price} €</p>
                         </div>
                         <div class="cart__item__content__settings">
                                 <div class="cart__item__content__settings__quantity">
                                 <p>Qté :</p>
-                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value=${produitInCart[i].quantity}>
+                                <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value= ${produitInCart[i].quantity}>
                             </div>
                             <div class="cart__item__content__settings__delete">
                                 <p class="deleteItem">Supprimer</p>
                             </div>
                         </div>
                     </div>
-                </article>`
+                </article>` 
 
-                let priceProduct = tempArray[i].price * parseInt(produitInCart[i].quantity);
-                priceProductArray.push(priceProduct);
+                //let priceProduct = tempArray[i].price * parseInt(produitInCart[i].quantity);
+                //priceProductArray.push(priceProduct);
 
             }
-            
+              
         }
         // quantité et prix total
         quantityTotal();
@@ -48,16 +48,18 @@ async function getApi(){
         // Delete et changement de la quantité totale
         deleteFunction();
         changeQuantityFunction();
+        
             
     })  
 
    
 }   
-getApi();
+afficherProduit();
 
 function quantityTotal(){
     const summQuantity = produitInCart.map(item => parseInt(item.quantity)).reduce((prev, curr) => prev + curr, 0);
     document.querySelector("#totalQuantity").innerHTML = summQuantity;
+    
 }
 function priceTotal(){
     summPriceTotal = priceProductArray.reduce((prev, curr) => prev + curr, 0);
@@ -73,10 +75,12 @@ function deleteFunction(){
                 if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
                     produitInCart.splice(i, 1);
                     localStorage.setItem("Panier", JSON.stringify(produitInCart));
-                    location.reload();
+                    location.href = "./cart.html";
                 }
             }
+            afficherProduit();          
         });
+       
     })
 }
 
@@ -90,13 +94,15 @@ function changeQuantityFunction(){
                         produitInCart[i].quantity = el.value;
                         produitInCart.push();
                         localStorage.setItem("Panier", JSON.stringify(produitInCart));
-                       // location.reload();
+                        
                     }else{
                         alert("veuillez sélectionner un nombre compris entre 1 et 100");
-                        //location.reload();
                     }
                 }
             }
+            quantityTotal();
+            //priceTotal();
+
         })
     })
 }
@@ -253,6 +259,7 @@ form.addEventListener('submit', (event)=>{
     }).then((res) => res.json())
     .then((getDataOrder) => {
         location.href = `./confirmation.html?id=${getDataOrder.orderId}`;
+        localStorage.clear();
     });
     
 });
