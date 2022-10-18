@@ -6,8 +6,7 @@ let founProduct;
 async function afficherProduit(){
     await fetch('http://localhost:3000/api/products/')
     .then(res => res.json())
-    .then(dataJson =>{
-        let test = [];       
+    .then(dataJson =>{       
         for (let i = 0; i < produitInCart.length; i++) {    
             founProduct = dataJson.find((productFind) => productFind._id === produitInCart[i].id);
             if(founProduct){
