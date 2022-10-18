@@ -47,38 +47,25 @@ function quantityTotal(){
     document.querySelector("#totalQuantity").innerHTML = summQuantity;
 }
 
-function deleteFunction(){  
-    let deleteButton = document.querySelectorAll(".deleteItem");
-    deleteButton.forEach((el) =>{
-        el.addEventListener("click", () =>{
-            for(let i = 0; i < produitInCart.length; i++){
-                if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
-                    produitInCart.splice(i, 1);
-                    localStorage.setItem("Panier", JSON.stringify(produitInCart));
-                    location.href = "./cart.html";
-                }
-            }
-            afficherProduit();          
-        });   
-    })
-}
-
 function priceTotal(){
     let priceInner = document.querySelectorAll(".cart__item__content__description");
     let result;
     let priceArrayTemp = [];
     priceInner.forEach((el) => {
-        let test = el.children[2].innerHTML.split("€").join(" ");
+        let test = el.children[2].innerHTML.split("€").join(" "); // isoler le prix du DOM
         for(let i = 0; i <  produitInCart.length; i++){
+            // Vérifier si l'id et la couleur du dataset sont la meme que ceux du Panier
             if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
-                result = test * produitInCart[i].quantity;      
+                //Multiplier le prix et la quantité
+                result = test * produitInCart[i].quantity;
+                //stocker le resultat dans un tableau      
                 priceArrayTemp.push(result);      
             }     
         }
     });  
     let priceTotalInCart;
-    priceTotalInCart = priceArrayTemp.reduce((prev, curr) => prev + curr, 0);
-    document.querySelector("#totalPrice").innerHTML = priceTotalInCart;
+    priceTotalInCart = priceArrayTemp.reduce((prev, curr) => prev + curr, 0); // somme d'éléments dans tableau
+    document.querySelector("#totalPrice").innerHTML = priceTotalInCart; // afficher le prix total sur la page
 }
 
 function changeQuantityFunction(){
@@ -86,6 +73,7 @@ function changeQuantityFunction(){
     changeQuantity.forEach((el)=>{
         el.addEventListener("change", () =>{
             for(let i = 0; i < produitInCart.length; i++){
+                 // Vérifier si l'id et la couleur du dataset sont la meme que ceux du Panier
                 if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
                     if(el.value != 0 && el.value < 100){
                         produitInCart[i].quantity = el.value;
@@ -102,6 +90,23 @@ function changeQuantityFunction(){
         })
     })
 }
+
+function deleteFunction(){  
+    let deleteButton = document.querySelectorAll(".deleteItem");
+    deleteButton.forEach((el) =>{
+        el.addEventListener("click", () =>{
+            for(let i = 0; i < produitInCart.length; i++){
+                if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
+                    produitInCart.splice(i, 1);
+                    localStorage.setItem("Panier", JSON.stringify(produitInCart));
+                    location.href = "./cart.html";
+                }
+            }
+            afficherProduit();          
+        });   
+    })
+}
+
 
 let form = document.querySelector(".cart__order__form");
 let inputEmail = document.getElementById("email");
