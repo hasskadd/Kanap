@@ -76,36 +76,37 @@ function changeQuantityFunction(){
                  // Vérifier si l'id et la couleur du dataset sont la meme que ceux du Panier
                 if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
                     if(el.value > 0 && el.value < 100){
-                        produitInCart[i].quantity = el.value;
-                        produitInCart.push();
-                        localStorage.setItem("Panier", JSON.stringify(produitInCart));
+                        produitInCart[i].quantity = el.value; // modifier la quantité du panier en function de l'input
+                        produitInCart.push(); 
+                        localStorage.setItem("Panier", JSON.stringify(produitInCart)); // sauvegarde dans le localStorage
                         
                     }else{
-                        alert("veuillez sélectionner un nombre compris entre 1 et 100");
-                        el.value = produitInCart[i].quantity
+                        alert("veuillez sélectionner un nombre compris entre 1 et 100"); 
+                        el.value = produitInCart[i].quantity; // revenir à la valeur du localStorage si la quantité est négative ou superieur à 100
                         
                     }
                 }
             }
-            quantityTotal();
-            priceTotal();
+            quantityTotal(); // Update la nouvelle quantité
+            priceTotal(); // Update le prix total  
         })
     })
 }
 
 function deleteFunction(){  
-    let deleteButton = document.querySelectorAll(".deleteItem");
+    let deleteButton = document.querySelectorAll(".deleteItem"); // selection de toutes les div "deleteItem"
     deleteButton.forEach((el) =>{
         el.addEventListener("click", () =>{
             for(let i = 0; i < produitInCart.length; i++){
+                // Vérifier si l'id et la couleur du dataset sont la meme que ceux du Panier
                 if(el.closest(".cart__item").dataset.id == produitInCart[i].id && el.closest(".cart__item").dataset.color ==  produitInCart[i].colors){
-                    produitInCart.splice(i, 1);
-                    localStorage.setItem("Panier", JSON.stringify(produitInCart));
-                    el.closest(".cart__item").remove("cart__item");
+                    produitInCart.splice(i, 1); // supprimer le produit du panier
+                    localStorage.setItem("Panier", JSON.stringify(produitInCart)); // sauvegarde dans le localStorage
+                    el.closest(".cart__item").remove("cart__item"); // supprimer la div du DOM
                 }
             }
-            quantityTotal();
-            priceTotal();         
+            quantityTotal(); // Update la nouvelle quantité
+            priceTotal();   // Update le prix total      
         });   
     })
 }
@@ -143,15 +144,15 @@ form.city.addEventListener('change', ()=>{
 function validFirstName(){
     //création du reg exp pour la validation du prénom
     let firstNameRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{3,30}$/g;
-    let testFirstName = firstNameRegex.test(inputFirstName.value);
+    let testFirstName = firstNameRegex.test(inputFirstName.value); // tester la sortie input avec le Regex
 
-    let msgErrorFirstName = document.querySelector("#firstNameErrorMsg");
+    let msgErrorFirstName = document.querySelector("#firstNameErrorMsg"); 
 
     // test expression Reg
     if(testFirstName){
-        msgErrorFirstName.innerHTML = "Prénom valide";
-        msgErrorFirstName.classList.remove('text-danger');
-        msgErrorFirstName.classList.add('text-success');
+        msgErrorFirstName.innerHTML = "Prénom valide"; // si le test est correct , affiche un message de validation
+        msgErrorFirstName.classList.remove('text-danger'); 
+        msgErrorFirstName.classList.add('text-success'); 
         
     }else{
         msgErrorFirstName.innerHTML = "Prénom non valide";
@@ -237,12 +238,12 @@ function validCity(){
 
 let products = [];
 for(let i = 0; i< produitInCart.length; i++){
-    products.push(produitInCart[i].id);
+    products.push(produitInCart[i].id); // ajout des Id de panier dans un tableau
 }
 
 form.addEventListener('submit', (event)=>{
-    event.preventDefault();
-    const dataOrder = {
+    event.preventDefault(); // bloquer le comportement par defaut
+    const dataOrder = { // création d'un objet selon le controller
         contact:{
             firstName: inputFirstName.value,
             lastName: inputLastName.value,
@@ -254,14 +255,15 @@ form.addEventListener('submit', (event)=>{
         products
     
     }
+    //methode Post
     fetch('http://localhost:3000/api/products/order',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(dataOrder), 
     }).then((res) => res.json())
     .then((getDataOrder) => {
-        location.href = `./confirmation.html?id=${getDataOrder.orderId}`;
-        localStorage.clear();
+        location.href = `./confirmation.html?id=${getDataOrder.orderId}`; // page de confirmation avec l'id de commande
+         // supprimer le localStorage avec confirmation
     });
     
 });
