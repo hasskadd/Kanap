@@ -263,7 +263,7 @@ form.addEventListener('submit', (event)=>{
     }).then((res) => res.json())
     .then((getDataOrder) => {
         location.href = `./confirmation.html?id=${getDataOrder.orderId}`; // page de confirmation avec l'id de commande
-         // supprimer le localStorage avec confirmation
+        localStorage.clear(); // supprimer le localStorage avec confirmation
     });
     
 });
